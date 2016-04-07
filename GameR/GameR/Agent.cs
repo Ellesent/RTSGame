@@ -15,8 +15,8 @@ namespace GameR
         List<Unit> units;
         int gold;
         Graph<int>.Node<int> baseNode;
-        Random randomBaseX;
-        Random randomBaseY;
+       static Random randomBase;
+       //static Random randomBaseY;
         int x;
         int y;
         Graph<int>.Node<int>[,] nodes;
@@ -28,17 +28,16 @@ namespace GameR
         public Agent(Graph<int>.Node<int>[,] nodes, Game game, SpriteBatch spriteBatch)
         {
             this.nodes = nodes;
-            randomBaseX = new Random();
-            randomBaseY = new Random();
+            randomBase = new Random();
             units = new List<Unit>();
             gold = 100;
-            x = randomBaseX.Next(0, 2);
+            x = randomBase.Next(0, 2);
             if (x == 1)
             {
                 x = nodes.GetLength(0) - 1;
             }
 
-            y = randomBaseY.Next(0, 2);
+            y = randomBase.Next(0, 2);
             if (y == 1)
             {
                 y = nodes.GetLength(1) - 1;
@@ -46,6 +45,7 @@ namespace GameR
 
             baseNode = nodes[x, y];
             baseNode.Cell.GetColor = Color.AntiqueWhite;
+            baseNode.Cell.IsObstacle = true; 
 
             homeBase = new Building(BuildingType.homeBase, game, "base", spriteBatch, baseNode.Cell.position + new Vector2(baseNode.Cell.Size / 2), baseNode);
 

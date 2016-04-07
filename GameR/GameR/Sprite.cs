@@ -31,8 +31,8 @@ namespace GameR
             this.position = position;
             this.node = node;
             //this.velocity = velocity;
-            orientation = 0;
-            velocity = Vector2.Zero; 
+           // orientation = 0;
+            //velocity = Vector2.Zero; 
             //set origin of sprites to be half of their width and height
             origin = new Vector2(texture.Width / 2, texture.Height / 2);
         }
