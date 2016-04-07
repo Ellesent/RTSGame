@@ -1,10 +1,11 @@
-﻿using Microsoft.Xna.Framework;
+﻿
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
+
 namespace RTSGame
-{
-    /// <summary>
+{   /// summary
     /// This is the main type for your game.
     /// </summary>
     public class Game1 : Game
@@ -12,10 +13,30 @@ namespace RTSGame
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
 
+        Agent agentOne; 
+
+        KeyboardState oldState;
+        KeyboardState newState;
+
+
+        Graph<int> grid; 
+
+        const int gridSize = 32;  // grid cell size
+        GridCell[,] cells;        // array of grid cells for drawing the grid
+
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
+
+            //Set preferred size of screen
+            graphics.PreferredBackBufferWidth = 1024;
+            graphics.PreferredBackBufferHeight = 768;
+
+            //Initialize grid cell array
+            cells = new GridCell[graphics.PreferredBackBufferWidth / gridSize, graphics.PreferredBackBufferHeight / gridSize];
+            IsMouseVisible = true; 
+
         }
 
         /// <summary>
@@ -40,7 +61,22 @@ namespace RTSGame
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            // TODO: use this.Content to load your game content here
+            //create the grid cells
+            for (int i = 0; i < cells.GetLength(0); i++)
+            {
+                for (int j = 0; j < cells.GetLength(1); j++)
+                {
+                    cells[i, j] = new GridCell(this, spriteBatch, new Vector2(i * gridSize, j * gridSize), gridSize, Color.CornflowerBlue);
+                }
+            }
+
+            //create the graph based on the grid cells and perform the breath first search
+            grid = new Graph<int>(this, cells);
+            // diag = new DiagonalGraph<int>(this, cells);
+
+            agentOne = new Agent(grid.Nodes, this, spriteBatch);
+
+            //mouse = new UserSprite(this, "mouse", spriteBatch, new Vector2(5, 5), new Vector2(0.5f, 0.5f), grid.follow);
         }
 
         /// <summary>
@@ -59,10 +95,23 @@ namespace RTSGame
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
+           
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
+            oldState = newState;
+            newState = Keyboard.GetState();
 
+            //if (newState.IsKeyDown(Keys.B) && oldState.IsKeyUp(Keys.B))
+            //{
+            //    grid.BreadthFirstSearch();
+
+            //}
+            if (newState.IsKeyDown(Keys.D) && oldState.IsKeyUp(Keys.D))
+            {
+                grid.BreadthFirstSearch();
+            }
             // TODO: Add your update logic here
+
 
             base.Update(gameTime);
         }
@@ -81,3 +130,4 @@ namespace RTSGame
         }
     }
 }
+

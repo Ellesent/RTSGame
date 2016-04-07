@@ -38,13 +38,25 @@
     <ApplicationIcon>Icon.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Agent.cs" />
+    <Compile Include="Building.cs" />
+    <Compile Include="BuildingType.cs" />
     <Compile Include="Game1.cs" />
+    <Compile Include="Graph.cs" />
+    <Compile Include="GridCell.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Sprite.cs" />
+    <Compile Include="TextItem.cs" />
+    <Compile Include="Unit.cs" />
+    <Compile Include="UnitType.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="MonoGame.Framework">
       <HintPath>$(MSBuildProgramFiles32)\MonoGame\v3.0\Assemblies\Windows\MonoGame.Framework.dll</HintPath>
+    </Reference>
+    <Reference Include="Primitives2D">
+      <HintPath>..\..\..\CatAndMouse\Grid\Grid\bin\Windows\Debug\Primitives2D.DLL</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Xml" />
