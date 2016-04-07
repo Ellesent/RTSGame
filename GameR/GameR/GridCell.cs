@@ -3,14 +3,14 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using C3.XNA;
 
-namespace RTSGame
+namespace GameR
 {
     /// <summary>
     /// Grid cell class for drawing the grid cells
     /// </summary>
     class GridCell : DrawableGameComponent
     {
-       public Vector2 position;                   // stores position of grid cell
+        public Vector2 position;                   // stores position of grid cell
         public SpriteBatch spriteBatch;     // spriteBatch needed to draw cells
         int size;                           // size of individual grid cell
         Color color;
@@ -58,7 +58,7 @@ namespace RTSGame
         /// <param name="position">the position of the grid cell in the world</param>
         /// <param name="size">the size of the grid cell</param>
         /// <param name="color">the color of the grid cell</param>
-        public GridCell(Game game, SpriteBatch spriteBatch, Vector2 position, int size, Color color) : base (game)
+        public GridCell(Game game, SpriteBatch spriteBatch, Vector2 position, int size, Color color) : base(game)
         {
             //store parameters and add this to components
             game.Components.Add(this);
@@ -79,7 +79,7 @@ namespace RTSGame
             //lastMouseState = mouseState;
             //mouseState = Mouse.GetState();
             //Point mousePosition = new Point(mouseState.X, mouseState.Y);
-            
+
             //if(lastMouseState.LeftButton == ButtonState.Released && mouseState.LeftButton == ButtonState.Pressed)
             //{
             //    if (clickableArea.Contains(mousePosition))
@@ -113,7 +113,7 @@ namespace RTSGame
             spriteBatch.Begin();
 
             //draw a rectangle with a border for a grid cell
-           spriteBatch.FillRectangle(new Rectangle((int)position.X, (int)position.Y, size, size), color);
+            spriteBatch.FillRectangle(new Rectangle((int)position.X, (int)position.Y, size, size), color);
             spriteBatch.DrawRectangle(new Rectangle((int)position.X, (int)position.Y, size, size), Color.Black);
             //spriteBatch.DrawLine(startPoint + new Vector2(16,16), endPoint + new Vector2(16, 16), Color.DarkRed);
 

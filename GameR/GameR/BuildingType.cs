@@ -3,9 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace RTSGame
+namespace GameR
 {
-    class TextItem
-    {
-    }
+    enum BuildingType { homeBase, goldMine, barracks }
 }
+

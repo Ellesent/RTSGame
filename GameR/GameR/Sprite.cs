@@ -4,7 +4,7 @@ using Microsoft.Xna.Framework.Input;
 using System;
 
 
-namespace RTSGame
+namespace GameR
 {
     class Sprite : DrawableGameComponent
     {
@@ -13,9 +13,9 @@ namespace RTSGame
         protected Vector2 origin; //used for setting origin to center on sprites
         protected float orientation; //used for rotation of sprites
 
-        protected float coolDown; 
-       protected Texture2D texture; //used for loading textures
-       protected SpriteBatch spritebatch; //used for drawing textures and strings
+        protected float coolDown;
+        protected Texture2D texture; //used for loading textures
+        protected SpriteBatch spritebatch; //used for drawing textures and strings
 
         Graph<int>.Node<int> node;
 
@@ -24,19 +24,20 @@ namespace RTSGame
         {
             //add Sprites to game components so Update automatically gets called
             game.Components.Add(this);
-            
+
             //set the parameters of the constructor to our local variables
             this.texture = game.Content.Load<Texture2D>(textureName);
             this.spritebatch = spriteBatch;
             this.position = position;
             this.node = node;
             //this.velocity = velocity;
-
+            orientation = 0;
+            velocity = Vector2.Zero; 
             //set origin of sprites to be half of their width and height
             origin = new Vector2(texture.Width / 2, texture.Height / 2);
         }
 
-  
+
         public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
@@ -48,7 +49,7 @@ namespace RTSGame
             }
             if (position.Y < 0 + texture.Height / 2)
             {
-                position.Y = (0 + texture.Height) ;
+                position.Y = (0 + texture.Height);
             }
             if (position.X > 1024 - texture.Width / 2)
             {
@@ -56,7 +57,7 @@ namespace RTSGame
             }
             if (position.Y > 768 + texture.Height / 2)
             {
-                position.Y = 768; 
+                position.Y = 768;
             }
 
         }
@@ -67,7 +68,7 @@ namespace RTSGame
 
             //draw the textures onto the screen with a certain position, origin, and rotation
             spritebatch.Begin();
-            spritebatch.Draw(texture, position,null, Color.White, orientation, origin, 1, SpriteEffects.None, 0);
+            spritebatch.Draw(texture, position, null, Color.White, orientation, origin, 1, SpriteEffects.None, 0);
             spritebatch.End();
         }
 
@@ -95,5 +96,6 @@ namespace RTSGame
             }
         }
     }
-       
+
 }
+

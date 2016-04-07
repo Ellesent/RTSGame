@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework.Input;
 using System;
 using System.Collections.Generic;
 
-namespace RTSGame
+namespace GameR
 {
     /// <summary>
     /// Graph class that provides the back end of the grid
@@ -28,7 +28,7 @@ namespace RTSGame
 
         //public static bool ready; 
 
-       public List<Vector2> follow;
+        public List<Vector2> follow;
 
         #endregion
 
@@ -56,9 +56,9 @@ namespace RTSGame
 
             //set search boolean to false and set the timer to 200 milliseconds
             //GO = false;
-           // timer = 200;
+            // timer = 200;
 
-           
+
 
             //Initialiize nodes array to the size of the grid cells array
             nodes = new Node<T>[cells.GetLength(0), cells.GetLength(1)];
@@ -68,7 +68,7 @@ namespace RTSGame
             {
                 for (int j = 0; j < cells.GetLength(1); j++)
                 {
-                        nodes[i, j] = new Node<T>(cells[i, j]);
+                    nodes[i, j] = new Node<T>(cells[i, j]);
                 }
             }
 
@@ -80,7 +80,7 @@ namespace RTSGame
                 {
                     if (i == 0)
                     {
-                      
+
                         nodes[i, j].AddEdge(nodes[i + 1, j]);
                     }
                     else if (i == nodes.GetLength(0) - 1)
@@ -128,7 +128,7 @@ namespace RTSGame
 
             //set the start node,s color to red and the end node's color to green
             startNode.Cell.GetColor = Color.Red;
-         
+
         }
 
         #endregion
@@ -178,7 +178,7 @@ namespace RTSGame
                     toVisit.Clear();
                 }
                 n.BackNode = null;
-               // ready = false;
+                // ready = false;
 
 
                 // BreadthFirstSearch();
@@ -196,7 +196,7 @@ namespace RTSGame
         {
             base.Update(gameTime);
 
-            if(hasEndNode == false)
+            if (hasEndNode == false)
             {
                 foreach (Node<T> n in nodes)
                 {
@@ -212,7 +212,7 @@ namespace RTSGame
 
             if (hasEndNode == true)
             {
-               
+
             }
 
             //get old state and new state of keyboard
@@ -275,7 +275,7 @@ namespace RTSGame
                     {
                         n.BackNode = curr;
                         //follow.Enqueue(curr.Cell.position + new Vector2(curr.Cell.Size / 2, curr.Cell.Size / 2));
-       
+
                         Node<T> t = curr;
 
                         follow.Add(endNode.Cell.position + new Vector2(endNode.Cell.Size / 2));
@@ -321,7 +321,7 @@ namespace RTSGame
                 }
             }
 
-            return null; 
+            return null;
         }
         #endregion
         #endregion
@@ -334,17 +334,17 @@ namespace RTSGame
 
         #region Fields
         public class Node<N>
-            {
-                List<Node<N>> neighbors;    //A list of the node's neighbors
-                List<Edge<N>> edges;        //a list of the node's edges with other nodes
-                GridCell currCell;          //the grid cell connected to this node
-                bool wasVisited;            //was the node visited in the search already?
-                Node<T> backNode;           //holds the node this node came from
-                int distance;               //holds the distance of this node
+        {
+            List<Node<N>> neighbors;    //A list of the node's neighbors
+            List<Edge<N>> edges;        //a list of the node's edges with other nodes
+            GridCell currCell;          //the grid cell connected to this node
+            bool wasVisited;            //was the node visited in the search already?
+            Node<T> backNode;           //holds the node this node came from
+            int distance;               //holds the distance of this node
 
             public static int numberNodes = 0;
 
-                #endregion
+            #endregion
 
             #region Properties
 

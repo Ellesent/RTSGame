@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace RTSGame
+namespace GameR
 {
 #if WINDOWS || LINUX
     /// <summary>

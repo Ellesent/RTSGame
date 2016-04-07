@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace RTSGame
+namespace GameR
 {
     class Agent
     {
@@ -25,8 +25,9 @@ namespace RTSGame
         #endregion
 
         #region Constructor
-        public Agent (Graph<int>.Node<int>[,] nodes, Game game, SpriteBatch spriteBatch )
+        public Agent(Graph<int>.Node<int>[,] nodes, Game game, SpriteBatch spriteBatch)
         {
+            this.nodes = nodes;
             randomBaseX = new Random();
             randomBaseY = new Random();
             units = new List<Unit>();
@@ -40,14 +41,15 @@ namespace RTSGame
             y = randomBaseY.Next(0, 2);
             if (y == 1)
             {
-                x = nodes.GetLength(1) - 1; 
+                y = nodes.GetLength(1) - 1;
             }
 
             baseNode = nodes[x, y];
+            baseNode.Cell.GetColor = Color.AntiqueWhite;
 
-            homeBase = new Building(BuildingType.homeBase, game, "base", spriteBatch, baseNode.Cell.position, baseNode);
+            homeBase = new Building(BuildingType.homeBase, game, "base", spriteBatch, baseNode.Cell.position + new Vector2(baseNode.Cell.Size / 2), baseNode);
 
-            
+
         }
         #endregion
     }

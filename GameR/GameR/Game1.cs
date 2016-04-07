@@ -1,10 +1,9 @@
-﻿
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
 
-namespace RTSGame
+namespace GameR
 {   /// summary
     /// This is the main type for your game.
     /// </summary>
@@ -13,13 +12,13 @@ namespace RTSGame
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
 
-        Agent agentOne; 
+        Agent agentOne;
 
         KeyboardState oldState;
         KeyboardState newState;
 
 
-        Graph<int> grid; 
+        Graph<int> grid;
 
         const int gridSize = 32;  // grid cell size
         GridCell[,] cells;        // array of grid cells for drawing the grid
@@ -35,7 +34,7 @@ namespace RTSGame
 
             //Initialize grid cell array
             cells = new GridCell[graphics.PreferredBackBufferWidth / gridSize, graphics.PreferredBackBufferHeight / gridSize];
-            IsMouseVisible = true; 
+            IsMouseVisible = true;
 
         }
 
@@ -95,7 +94,7 @@ namespace RTSGame
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
-           
+
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
             oldState = newState;
