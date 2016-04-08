@@ -13,6 +13,9 @@ namespace GameR
         SpriteBatch spriteBatch;
 
         Agent agentOne;
+        Agent agentTwo;
+        Agent agentThree;
+        Agent agentFour;
 
         KeyboardState oldState;
         KeyboardState newState;
@@ -73,7 +76,10 @@ namespace GameR
             grid = new Graph<int>(this, cells);
             // diag = new DiagonalGraph<int>(this, cells);
 
-            agentOne = new Agent(grid.Nodes, this, spriteBatch);
+            agentOne = new Agent(grid, this, spriteBatch);
+            //agentTwo = new Agent(grid, this, spriteBatch);
+            //agentFour = new Agent(grid.Nodes, this, spriteBatch);
+
 
             //mouse = new UserSprite(this, "mouse", spriteBatch, new Vector2(5, 5), new Vector2(0.5f, 0.5f), grid.follow);
         }
@@ -107,7 +113,7 @@ namespace GameR
             //}
             if (newState.IsKeyDown(Keys.D) && oldState.IsKeyUp(Keys.D))
             {
-                grid.BreadthFirstSearch();
+                //grid.BreadthFirstSearch();
             }
             // TODO: Add your update logic here
 

@@ -18,10 +18,10 @@ namespace GameR
         Node<T> endNode;        //end node for search
         Queue<Node<T>> toVisit; //Queue for breadth first search
         bool GO;                //used to initiate search
-        Random randomI;         //get a random node in the array's X position
-        Random randomJ;         //get a random node in the array's Y position
-        int arrayX;             //hold random array X number
-        int arrayY;             //hold a random array Y number
+        //Random randomI;         //get a random node in the array's X position
+       // Random randomJ;         //get a random node in the array's Y position
+        //int arrayX;             //hold random array X number
+        //int arrayY;             //hold a random array Y number
         bool hasEndNode;
         KeyboardState oldState; //hold keyboard's old state
         KeyboardState newState; //hold keyboard's new state
@@ -51,8 +51,8 @@ namespace GameR
             follow = new List<Vector2>();
 
             //initialize random variables
-            randomI = new Random();
-            randomJ = new Random();
+            //randomI = new Random();
+           // randomJ = new Random();
 
             //set search boolean to false and set the timer to 200 milliseconds
             //GO = false;
@@ -113,11 +113,11 @@ namespace GameR
             }
 
             //get the random x and y location of nodes array
-            arrayX = randomI.Next(nodes.GetLength(0) - 1);
-            arrayY = randomJ.Next(nodes.GetLength(1) - 1);
+            //arrayX = randomI.Next(nodes.GetLength(0) - 1);
+           // arrayY = randomJ.Next(nodes.GetLength(1) - 1);
 
             //set start node to random location
-            startNode = nodes[arrayX, arrayY];
+           // startNode = nodes[arrayX, arrayY];
 
             ////get the random x and y location of nodes array
             //arrayX = randomI.Next(nodes.GetLength(0) - 1);
@@ -127,7 +127,7 @@ namespace GameR
             //endNode = nodes[arrayX, arrayY];
 
             //set the start node,s color to red and the end node's color to green
-            startNode.Cell.GetColor = Color.Red;
+           // startNode.Cell.GetColor = Color.Red;
 
         }
 
@@ -148,9 +148,9 @@ namespace GameR
         public void Reset()
         {
             //get new locations for start and end node
-            arrayX = randomI.Next(nodes.GetLength(0) - 1);
-            arrayY = randomJ.Next(nodes.GetLength(1) - 1);
-            startNode = nodes[arrayX, arrayY];
+            //arrayX = randomI.Next(nodes.GetLength(0) - 1);
+            //arrayY = randomJ.Next(nodes.GetLength(1) - 1);
+            //startNode = nodes[arrayX, arrayY];
 
 
 
@@ -235,9 +235,10 @@ namespace GameR
         /// start the setup for the breadth first search
         /// </summary>
         #region BreadthFirstSearch
-        public List<Vector2> BreadthFirstSearch()
+        public List<Vector2> BreadthFirstSearch(Node<T> startNode, Node<T> endNode)
         {
-            endNode = nodes[5, 4];
+            this.startNode = startNode;
+            this.endNode = endNode;
             //initiliaze queue and add the start node
             toVisit = new Queue<Node<T>>();
             toVisit.Enqueue(startNode);
@@ -262,10 +263,10 @@ namespace GameR
                 Node<T> curr = toVisit.Dequeue();
 
                 //change it's color to yellow
-                if (curr != startNode)
-                {
-                    curr.Cell.GetColor = Color.Yellow;
-                }
+                //if (curr != startNode)
+                //{
+                //    curr.Cell.GetColor = Color.Yellow;
+                //}
 
                 //for each neighbor of the current cell..
                 foreach (Node<T> n in curr.Neighbors)
@@ -282,7 +283,7 @@ namespace GameR
 
                         while (t != startNode)
                         {
-                            t.Cell.GetColor = Color.Blue;
+                           // t.Cell.GetColor = Color.Blue;
                             follow.Add(t.Cell.position + new Vector2(t.Cell.Size / 2));
                             t = t.BackNode;
                         }
@@ -313,10 +314,10 @@ namespace GameR
                         //put the node in the queue and set it's color to orange
                         toVisit.Enqueue(n);
 
-                        if (n != startNode)
-                        {
-                            n.Cell.GetColor = Color.Orange;
-                        }
+                        //if (n != startNode)
+                        //{
+                        //    n.Cell.GetColor = Color.Orange;
+                        //}
                     }
                 }
             }

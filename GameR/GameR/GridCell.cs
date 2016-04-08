@@ -68,6 +68,7 @@ namespace GameR
             this.color = color;
             isDestination = false;
             clickableArea = new Rectangle((int)position.X, (int)position.Y, size, size);
+            isObstacle = false;
         }
 
         /// <summary>

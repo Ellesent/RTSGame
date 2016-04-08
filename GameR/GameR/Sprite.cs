@@ -42,23 +42,23 @@ namespace GameR
         {
             base.Update(gameTime);
 
-            //detect if the sprites are outside of the game window, and if they are put them back in
-            if (position.X < 0)
-            {
-                position.X = (0 + texture.Width) / 2;
-            }
-            if (position.Y < 0 + texture.Height / 2)
-            {
-                position.Y = (0 + texture.Height);
-            }
-            if (position.X > 1024 - texture.Width / 2)
-            {
-                position.X = 1024 - texture.Width;
-            }
-            if (position.Y > 768 + texture.Height / 2)
-            {
-                position.Y = 768;
-            }
+            ////detect if the sprites are outside of the game window, and if they are put them back in
+            //if (position.X < 0)
+            //{
+            //    position.X = (0 + texture.Width) / 2;
+            //}
+            //if (position.Y < 0 + texture.Height / 2)
+            //{
+            //    position.Y = (0 + texture.Height);
+            //}
+            //if (position.X > 1024 - texture.Width / 2)
+            //{
+            //    position.X = 1024 - texture.Width;
+            //}
+            //if (position.Y > 768 + texture.Height / 2)
+            //{
+            //    position.Y = 768;
+            //}
 
         }
 
@@ -72,6 +72,11 @@ namespace GameR
             spritebatch.End();
         }
 
+
+        public Graph<int>.Node<int> Node
+        {
+            get { return node; }
+        }
         public Vector2 Position
         {
             get
