@@ -16,6 +16,7 @@ namespace GameR
         protected float coolDown;
         protected Texture2D texture; //used for loading textures
         protected SpriteBatch spritebatch; //used for drawing textures and strings
+       protected Color color;
 
         Graph<int>.Node<int> node;
 
@@ -35,6 +36,7 @@ namespace GameR
             //velocity = Vector2.Zero; 
             //set origin of sprites to be half of their width and height
             origin = new Vector2(texture.Width / 2, texture.Height / 2);
+            color = Color.White;
         }
 
 
@@ -68,7 +70,7 @@ namespace GameR
 
             //draw the textures onto the screen with a certain position, origin, and rotation
             spritebatch.Begin();
-            spritebatch.Draw(texture, position, null, Color.White, orientation, origin, 1, SpriteEffects.None, 0);
+            spritebatch.Draw(texture, position, null, color, orientation, origin, 1, SpriteEffects.None, 0);
             spritebatch.End();
         }
 

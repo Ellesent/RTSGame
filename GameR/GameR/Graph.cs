@@ -15,7 +15,8 @@ namespace GameR
 
         Node<T>[,] nodes;       //list of nodes
         Node<T> startNode;      //Start node for search
-        Node<T> endNode;        //end node for search
+        Node<T> endNode; 
+        //end node for search
         Queue<Node<T>> toVisit; //Queue for breadth first search
         bool GO;                //used to initiate search
         //Random randomI;         //get a random node in the array's X position
@@ -75,40 +76,103 @@ namespace GameR
             //Add an edge between nodes based on the nodes location
             for (int i = 0; i < nodes.GetLength(0); i++)
             {
-                //add edges based on x location
                 for (int j = 0; j < nodes.GetLength(1); j++)
                 {
+
                     if (i == 0)
                     {
-
                         nodes[i, j].AddEdge(nodes[i + 1, j]);
+
+                        if (j == 0)
+                        {
+                            nodes[i, j].AddEdge(nodes[i, j + 1]);
+                            nodes[i, j].AddEdge(nodes[i + 1, j + 1]);
+                        }
+
+                        else if (j == nodes.GetLength(1) - 1)
+                        {
+                            nodes[i, j].AddEdge(nodes[i, j - 1]);
+                            nodes[i, j].AddEdge(nodes[i + 1, j - 1]);
+                        }
+
+                        else
+                        {
+                            nodes[i, j].AddEdge(nodes[i, j + 1]);
+                            nodes[i, j].AddEdge(nodes[1 + 1, j + 1]);
+                            nodes[i, j].AddEdge(nodes[i, j - 1]);
+                            nodes[i, j].AddEdge(nodes[i + 1, j - 1]);
+                        }
                     }
                     else if (i == nodes.GetLength(0) - 1)
                     {
                         nodes[i, j].AddEdge(nodes[i - 1, j]);
+
+                        if (j == 0)
+                        {
+                            nodes[i, j].AddEdge(nodes[i, j + 1]);
+                            nodes[i, j].AddEdge(nodes[i - 1, j + 1]);
+                        }
+                        else if (j == nodes.GetLength(1) - 1)
+                        {
+                            nodes[i, j].AddEdge(nodes[i, j - 1]);
+                            nodes[i, j].AddEdge(nodes[i - 1, j - 1]);
+                        }
+
+                        else
+                        {
+                            nodes[i, j].AddEdge(nodes[i, j + 1]);
+                            nodes[i, j].AddEdge(nodes[i - 1, j + 1]);
+                            nodes[i, j].AddEdge(nodes[i, j - 1]);
+                            nodes[i, j].AddEdge(nodes[i - 1, j - 1]);
+                        }
                     }
 
-                    else
-                    {
-                        nodes[i, j].AddEdge(nodes[i + 1, j]);
-                        nodes[i, j].AddEdge(nodes[i - 1, j]);
-                    }
 
-                    //add edges based on y location
                     if (j == 0)
                     {
-                        nodes[i, j].AddEdge(nodes[i, j + 1]);
-                    }
-                    else if (j == nodes.GetLength(1) - 1)
-                    {
-                        nodes[i, j].AddEdge(nodes[i, j - 1]);
+                        
+
+                        if (i > 0 && i < nodes.GetLength(0) - 1)
+                        {
+                            nodes[i, j].AddEdge(nodes[i, j + 1]);
+                            nodes[i, j].AddEdge(nodes[i - 1, j]);
+                            nodes[i, j].AddEdge(nodes[i + 1, j]);
+                            nodes[i, j].AddEdge(nodes[i - 1, j + 1]);
+                            nodes[i, j].AddEdge(nodes[i + 1, j + 1]);
+                        }
+
+
                     }
 
-                    else
+                    else if (j == nodes.GetLength(1) - 1)
                     {
-                        nodes[i, j].AddEdge(nodes[i, j + 1]);
-                        nodes[i, j].AddEdge(nodes[i, j - 1]);
+                       
+
+                        if (i > 0 && i < nodes.GetLength(0) - 1)
+                        {
+                            nodes[i, j].AddEdge(nodes[i, j - 1]);
+                            nodes[i, j].AddEdge(nodes[i - 1, j]);
+                            nodes[i, j].AddEdge(nodes[i + 1, j]);
+                            nodes[i, j].AddEdge(nodes[i - 1, j - 1]);
+                            nodes[i, j].AddEdge(nodes[i + 1, j - 1]);
+                            Console.WriteLine("bleh");
+                        }
                     }
+
+                    if (j > 0 && i > 0 && j < nodes.GetLength(1) - 1 && i < nodes.GetLength(0) - 1)
+                    {
+                        nodes[i, j].AddEdge(nodes[i - 1, j]);
+                        nodes[i, j].AddEdge(nodes[i + 1, j]);
+                        nodes[i, j].AddEdge(nodes[i - 1, j - 1]);
+                        nodes[i, j].AddEdge(nodes[i + 1, j - 1]);
+
+                        nodes[i, j].AddEdge(nodes[i - 1, j]);
+                        nodes[i, j].AddEdge(nodes[i + 1, j]);
+                        nodes[i, j].AddEdge(nodes[i - 1, j + 1]);
+                        nodes[i, j].AddEdge(nodes[i + 1, j + 1]);
+                    }
+
+
                 }
             }
 
@@ -237,10 +301,20 @@ namespace GameR
         #region BreadthFirstSearch
         public List<Vector2> BreadthFirstSearch(Node<T> startNode, Node<T> endNode)
         {
+            float currDistance;
+
+            foreach (Node<T> n in nodes)
+            {
+                n.WasVisited = false;
+                n.BackNode = null;
+            }
+
             this.startNode = startNode;
             this.endNode = endNode;
             //initiliaze queue and add the start node
             toVisit = new Queue<Node<T>>();
+            follow = new List<Vector2>();
+            startNode.Distance = 0;
             toVisit.Enqueue(startNode);
             startNode.WasVisited = true;
             //follow.Enqueue(startNode.Cell.position);
@@ -271,6 +345,7 @@ namespace GameR
                 //for each neighbor of the current cell..
                 foreach (Node<T> n in curr.Neighbors)
                 {
+                    currDistance = MathHelper.Distance(curr.Distance, n.Distance);
                     //if one of the neighbors is the end node, we found the end so get out of the loop
                     if (n == endNode)
                     {
@@ -293,7 +368,15 @@ namespace GameR
                     }
 
                     //if the node has already been visited, do nothing, we have found the shortest path to that node
-                    if (n.WasVisited == true || n.Cell.IsObstacle)
+                    if (n.WasVisited == true)
+                    {
+                        if (currDistance + curr.Distance < n.Distance)
+                        {
+                            n.Distance = currDistance + curr.Distance;
+                            n.BackNode = curr;
+                        }
+                    }
+                    else if (n.Cell.IsObstacle)
                     {
 
                     }
@@ -302,7 +385,7 @@ namespace GameR
                     else
                     {
                         //calculate distance of this neighbor to current node
-                        float fullDistance = n.Distance - curr.Distance;
+                        n.Distance = currDistance + curr.Distance;
 
                         //set node to visited, and set the back node to the current node
                         n.WasVisited = true;
@@ -341,7 +424,7 @@ namespace GameR
             GridCell currCell;          //the grid cell connected to this node
             bool wasVisited;            //was the node visited in the search already?
             Node<T> backNode;           //holds the node this node came from
-            int distance;               //holds the distance of this node
+            float distance;               //holds the distance of this node
 
             public static int numberNodes = 0;
 
@@ -386,7 +469,7 @@ namespace GameR
             /// <summary>
             /// get and set the distance of this node
             /// </summary>
-            public int Distance
+            public float Distance
             {
                 get { return distance; }
                 set { distance = value; }
